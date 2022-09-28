@@ -1,0 +1,44 @@
+.rdp {
+    --rdp-cell-size: 60px !important;
+    --rdp-accent-color: rgba(0, 66, 110, 0.66) !important;
+    --rdp-background-color: #e7edff;
+    /* Switch to dark colors for dark themes */
+    --rdp-accent-color-dark: black !important;
+    --rdp-background-color-dark: #180270;
+    /* Outline border for focused elements */
+    --rdp-outline: none !important;
+    /* Outline border for focused and selected elements */
+    --rdp-outline-selected: 2px solid rgba(0, 0, 0, 0.75);
+}
+
+.rdp-months {
+    justify-content: center;
+}
+
+.rdp-head_cell {
+    text-align: center !important;
+}
+
+.emotion-list {
+    background-color: white;
+    font-size: 1.1rem;
+    color: darkslategrey;
+}
+
+.emotion-list-item {
+    transition: all 0.3s ease 0s;
+    margin-top: 1rem;
+    padding: 0.6rem;
+    border-bottom: 2px solid whitesmoke;
+    cursor: pointer;
+}
+
+.emotion-list-item:hover {
+    border-bottom-color: rgba(0, 66, 110, 0.66);
+    font-weight: bold;
+}
+
+.emotion-list-item.active-emotion {
+    border-bottom: 3px solid rgba(0, 66, 110, 0.66);
+    font-weight: bold;
+}

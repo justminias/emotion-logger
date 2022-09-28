@@ -1,0 +1,25 @@
+.navbar {
+    border-bottom: 2px solid rgba(0,0,0, 0.17);
+    align-items: center;
+}
+
+.navbar-item {
+    padding: 1rem;
+}
+
+a.navbar-item:hover, .navbar-link:hover {
+    background-color: white;
+    color: black;
+}
+
+.navbar-link::after {
+    border-color: black !important;
+}
+
+.hoverable:hover {
+    border-bottom: 3px solid rgba(0, 66, 110, 0.66);
+}
+
+.navbar-item img {
+    max-height: 6rem;
+}

@@ -1,0 +1,22 @@
+.button:focus {
+    border-color: #b5b5b5;
+}
+
+.multiselect button.button {
+    border-radius: 16px;
+}
+
+.multiselect, .dropdown-trigger {
+    width: 100%;
+    justify-content: left;
+}
+
+.multiselect-icon > .button, button.button {
+    width: 100%;
+    display: block;
+    text-align: left;
+}
+
+.icon, span.icon.is-small {
+    float: right;
+}

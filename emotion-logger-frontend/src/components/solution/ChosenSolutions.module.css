@@ -1,0 +1,5 @@
+#chosen-solutions > button {
+    border-radius: 16px;
+    background-color: rgba(0, 66, 110, 0.66);
+    color: white;
+}

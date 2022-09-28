@@ -1,0 +1,17 @@
+.red-button {
+    background-color: rgba(200, 106, 131, 1);
+    color: white;
+    border: none;
+}
+
+.blue-button {
+    background-color: rgba(0, 66, 110, 0.66);
+    color: white;
+    border: none;
+}
+
+.gray-button {
+    background-color: rgba(244, 244, 244, 1);
+    color: black;
+    border: none;
+}
