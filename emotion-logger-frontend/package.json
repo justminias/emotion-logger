@@ -1,5 +1,5 @@
 {
-  "name": "emotion-tracker-frontend",
+  "name": "emotion-logger-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
