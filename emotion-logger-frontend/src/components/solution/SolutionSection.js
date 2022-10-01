@@ -1,10 +1,12 @@
 import {Multiselect} from "../common/multiselect/Multiselect";
 import ChosenSolutions from "./ChosenSolutions";
 import {useState} from "react";
+import {useSelector} from "react-redux";
 
-export const SolutionSection = ({initialSolutions}) => {
-    const [possibleSolutions, setPossibleSolutions] = useState(initialSolutions)
+export const SolutionSection = () => {
+    const possibleSolutions = useSelector(store => store.possibleSolutions);
     const [chosenSolutionIds, setChosenSolutionIds] = useState([]);
+
 
     const filterSolutions = (possibleSolutions, ids) => {
         return possibleSolutions.filter(solution => ids.includes(solution.id));
