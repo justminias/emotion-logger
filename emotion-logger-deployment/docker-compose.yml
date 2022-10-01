@@ -4,7 +4,7 @@ services:
   app:
     image: 'emotionlogger:latest'
     build:
-      context: .
+      context: ../emotion-logger-backend
     container_name: app
     ports:
       - '8080:8080'
@@ -20,7 +20,7 @@ services:
   frontend:
     image: 'frontend-image'
     build:
-      context: ../emotion-tracker-frontend
+      context: ../emotion-logger-frontend
     container_name: frontend
     restart: always
     ports:
@@ -45,10 +45,11 @@ services:
     container_name: pgadmin
     restart: always
     ports:
-      - '8000:80'
+      - '8000:81'
     environment:
       - PGADMIN_DEFAULT_EMAIL=postgresql@gmail.com
       - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_LISTEN_PORT=81
     volumes:
       - pgadmin-data:/var/lib/pgadmin
 
