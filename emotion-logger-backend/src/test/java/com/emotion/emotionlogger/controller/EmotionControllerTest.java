@@ -5,6 +5,7 @@ import com.emotion.emotionlogger.dto.EmotionDto;
 import com.emotion.emotionlogger.service.EmotionService;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,12 +20,20 @@ public class EmotionControllerTest {
     @Autowired
     EmotionService emotionService;
 
-    @LocalServerPort // todo: add some config to not init it any time
+    @Autowired
+    TestCleaner testCleaner;
+
+    @LocalServerPort // todo: add config to not init it every time
     private int port;
 
-    @BeforeEach // todo: add some config to not init it any time, maybe should change RANDOM_PORT
+    @BeforeEach // todo: add config to not init it every time, change of RANDOM_PORT maybe
     public void setUp() {
         RestAssured.port = port;
+    }
+
+    @AfterEach
+    public void tearDown() {
+        testCleaner.cleanAllRepositories();
     }
 
     @Test

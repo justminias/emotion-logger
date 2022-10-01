@@ -5,6 +5,7 @@ import com.emotion.emotionlogger.dto.SolutionDto;
 import com.emotion.emotionlogger.service.SolutionService;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,12 +20,20 @@ public class SolutionControllerTest {
     @Autowired
     SolutionService solutionService;
 
+    @Autowired
+    TestCleaner testCleaner;
+
     @LocalServerPort
     private int port;
 
     @BeforeEach
     public void setUp() {
         RestAssured.port = port;
+    }
+
+    @AfterEach
+    public void tearDown() {
+        testCleaner.cleanAllRepositories();
     }
 
     @Test
