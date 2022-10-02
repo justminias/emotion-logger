@@ -23,7 +23,7 @@ public class SolutionService {
 
     public List<SolutionDto> selectSolutions() {
         return solutionRepository.findAll().stream()
-                .map(solutionConverter::toDto)
+                .map(solutionConverter::convertReverse)
                 .collect(Collectors.toList());
     }
 
