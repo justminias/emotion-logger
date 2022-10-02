@@ -14,5 +14,5 @@ import java.util.List;
 @NoArgsConstructor
 public class GetSolutionsResponse {
 
-    private List<String> names = new ArrayList<>();
+    private List<SolutionDto> solutions = new ArrayList<>();
 }

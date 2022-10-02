@@ -22,9 +22,8 @@ public class SolutionController {
 
     @GetMapping("/select")
     public GetSolutionsResponse selectSolutions() {
-        List<String> solutionNames = solutionService.selectSolutions();
-        GetSolutionsResponse getSolutionsResponse = new GetSolutionsResponse(solutionNames);
-        return getSolutionsResponse;
+        List<SolutionDto> solutions = solutionService.selectSolutions();
+        return new GetSolutionsResponse(solutions);
     }
 
     @PostMapping("/update")

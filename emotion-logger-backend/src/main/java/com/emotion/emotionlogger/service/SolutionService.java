@@ -21,9 +21,9 @@ public class SolutionService {
         solutionRepository.save(convertedSolution);
     }
 
-    public List<String> selectSolutions() {
+    public List<SolutionDto> selectSolutions() {
         return solutionRepository.findAll().stream()
-                .map(SolutionEntity::getName)
+                .map(solutionConverter::toDto)
                 .collect(Collectors.toList());
     }
 

@@ -30,7 +30,8 @@ public class SolutionEntity {
 
     private LocalDateTime updateDate;
 
-    public SolutionEntity(String name) {
+    public SolutionEntity(String id, String name) {
+        this.id = id;
         this.name = name;
     }
 }
