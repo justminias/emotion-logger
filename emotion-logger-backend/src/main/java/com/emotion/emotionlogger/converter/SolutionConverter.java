@@ -16,4 +16,12 @@ public class SolutionConverter implements Converter<SolutionDto, SolutionEntity>
                 .name(solutionDto.getName())
                 .build();
     }
+
+    @Override
+    public SolutionDto convertReverse(SolutionEntity entity) {
+        return SolutionDto.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .build();
+    }
 }

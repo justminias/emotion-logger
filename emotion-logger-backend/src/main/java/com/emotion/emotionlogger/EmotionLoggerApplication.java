@@ -1,8 +1,10 @@
 package com.emotion.emotionlogger;
 
 import com.emotion.emotionlogger.entity.EmotionEntity;
+import com.emotion.emotionlogger.entity.SolutionEntity;
 import com.emotion.emotionlogger.repository.EmotionRepository;
 import com.emotion.emotionlogger.repository.EmotionLogRepository;
+import com.emotion.emotionlogger.repository.SolutionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,6 +19,8 @@ public class EmotionLoggerApplication implements CommandLineRunner {
 
     EmotionLogRepository entryRepository;
 
+    SolutionRepository solutionRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(EmotionLoggerApplication.class, args);
     }
@@ -25,5 +29,7 @@ public class EmotionLoggerApplication implements CommandLineRunner {
     @Transactional
     public void run(String... args) throws Exception {
         emotionRepository.save(new EmotionEntity("5", "Anger"));
+        solutionRepository.save(new SolutionEntity("1234", "Listening to music"));
+        solutionRepository.save(new SolutionEntity("3456", "Jogging"));
     }
 }
