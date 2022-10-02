@@ -1,6 +1,6 @@
 import {CHANGE_CURRENT_EMOTION_LOG, CLEAR_CURRENT_EMOTION_LOG} from '../actions/chosenLogActions'
 
-export const chosenLogReducer = (state = null, action) => {
+const chosenLogReducer = (state = null, action) => {
 
     switch (action.type) {
         case CHANGE_CURRENT_EMOTION_LOG: {
@@ -15,3 +15,5 @@ export const chosenLogReducer = (state = null, action) => {
             return state;
     }
 }
+
+export default chosenLogReducer;

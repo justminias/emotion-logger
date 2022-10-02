@@ -1,0 +1,13 @@
+a.back-link:hover {
+    background-color: white;
+    color: black;
+}
+
+a.back-link {
+    background-color: white;
+    color: #4a4a4a;
+}
+
+.back-link::before {
+    border-color: black !important;
+}

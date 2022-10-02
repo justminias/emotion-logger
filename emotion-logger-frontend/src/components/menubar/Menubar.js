@@ -6,10 +6,8 @@ export const Menubar = () => {
     return (
         <nav className="navbar" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
-                <Link to="/">
-                    <a className="navbar-item">
-                        <img src={logo} alt={logo}/>
-                    </a>
+                <Link className="navbar-item" to="/">
+                    <img src={logo} alt={logo}/>
                 </Link>
             </div>
 
@@ -19,10 +17,8 @@ export const Menubar = () => {
                        className="navbar-item hoverable is-size-5 has-text-weight-semibold">Emotions</a>
                     <a href="#statistics"
                        className="navbar-item hoverable is-size-5 has-text-weight-semibold">Statistics</a>
-                    <Link to="/log-emotion">
-                        <a className="navbar-item">
-                            <button className="button red-button has-text-weight-semibold">Log emotion +</button>
-                        </a>
+                    <Link className="navbar-item" to="/log-emotion">
+                        <button className="button red-button has-text-weight-semibold">Log emotion +</button>
                     </Link>
                 </div>
 

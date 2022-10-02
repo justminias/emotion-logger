@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
-import {emotionLogsReducer} from './emotionLogsReducer'
-import {possibleSolutionsReducer} from "./possibleSolutionsReducer";
-import {chosenLogReducer} from "./chosenLogReducer";
+import emotionLogsReducer from './emotionLogsReducer'
+import solutionsReducer from "./solutionsReducer";
+import chosenLogReducer from "./chosenLogReducer";
 
 export const rootReducer = combineReducers({
     emotionLogs: emotionLogsReducer,
-    possibleSolutions: possibleSolutionsReducer,
+    solutions: solutionsReducer,
     chosenLog: chosenLogReducer,
 })

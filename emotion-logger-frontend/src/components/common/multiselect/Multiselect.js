@@ -1,29 +1,13 @@
 import './Multiselect.module.css'
 import MultiselectItem from "./MultiselectItem";
 import {useState} from "react";
+import {useSelector} from "react-redux";
 
-export const Multiselect = ({onSolutionActivityChange, possibleSolutions}) => {
-
-    const [solutionsAndState, getStateFromChild] = useState([]);
+export const Multiselect = () => {
     const [multiselectIconName, setMultiselectIconName] = useState('fa-angle-down')
     const [dropdownIsActiveClassname, setDropdownIsActiveClassname] = useState('')
+    const possibleSolutions = useSelector(state => state.solutions.possibleSolutions);
 
-    const sendDataToParent = (id, checked) => {
-        if (solutionsAndState.findIndex(s => s.id === id) === -1) {
-            getStateFromChild(old => [...old, {id: id, checked: checked}]);
-            onSolutionActivityChange(id)
-            return;
-        }
-
-        getStateFromChild(
-            solutionsAndState.map(solutionAndState => {
-                if (solutionAndState.id === id) {
-                    onSolutionActivityChange(id)
-                    return {...solutionAndState, checked: checked}
-                }
-                return {...solutionAndState};
-            }));
-    }
 
     const handleClick = () => {
         dropdownIsActiveClassname === ''
@@ -47,11 +31,10 @@ export const Multiselect = ({onSolutionActivityChange, possibleSolutions}) => {
             </div>
             <div className="dropdown-menu" id="dropdown-menu" role="menu">
                 <div className="dropdown-content">
-                    {possibleSolutions.map(possibleSolution => <MultiselectItem
-                        key={possibleSolution.id}
-                        id={possibleSolution.id}
-                        name={possibleSolution.name}
-                        sendDataToParent={sendDataToParent} />)}
+                    {possibleSolutions &&
+                        possibleSolutions.map(possibleSolution => <MultiselectItem
+                            key={possibleSolution.id}
+                            solution={possibleSolution}/>)}
                 </div>
             </div>
         </div>

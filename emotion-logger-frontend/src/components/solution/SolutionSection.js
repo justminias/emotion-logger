@@ -1,34 +1,27 @@
 import {Multiselect} from "../common/multiselect/Multiselect";
 import ChosenSolutions from "./ChosenSolutions";
-import {useState} from "react";
-import {useSelector} from "react-redux";
+import {useEffect} from "react";
+import {useDispatch} from "react-redux";
+import {clearChosenSolutions, getSolutionsThunk} from "../../actions/solutionsActions";
 
 export const SolutionSection = () => {
-    const possibleSolutions = useSelector(store => store.possibleSolutions);
-    const [chosenSolutionIds, setChosenSolutionIds] = useState([]);
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(getSolutionsThunk());
 
-    const filterSolutions = (possibleSolutions, ids) => {
-        return possibleSolutions.filter(solution => ids.includes(solution.id));
-    }
-
-    const handleSolutionActivityChange = (id) => {
-        if (chosenSolutionIds.includes(id)) {
-            setChosenSolutionIds(chosenSolutionIds.filter(solutionId => solutionId !== id));
-            return;
+        return function cleanup() {
+            dispatch(clearChosenSolutions());
         }
-
-        setChosenSolutionIds(oldIds => [...oldIds, id])
-    }
-
+    }, [])
 
     return (
         <div className="columns">
             <div className="column is-4">
-                <Multiselect onSolutionActivityChange={(solutionId) => handleSolutionActivityChange(solutionId)} possibleSolutions={possibleSolutions}/>
+                <Multiselect/>
             </div>
             <div className="column is-8">
-                <ChosenSolutions solutions={filterSolutions(possibleSolutions, chosenSolutionIds)}></ChosenSolutions>
+                <ChosenSolutions/>
             </div>
         </div>
     )

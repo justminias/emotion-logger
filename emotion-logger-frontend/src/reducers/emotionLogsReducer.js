@@ -1,3 +1,5 @@
+import {ADD_EMOTION_LOG, GET_USER_EMOTION_LOGS} from '../actions/emotionLogActions'
+
 const emotionsLogs = [
     {
         id: 'emo1',
@@ -51,11 +53,17 @@ const emotionsLogs = [
     }
 ]
 
-export const emotionLogsReducer = (state = emotionsLogs, action) => {
-
+const emotionLogsReducer = (state = emotionsLogs, action) => {
     switch (action.type) {
-
+        case GET_USER_EMOTION_LOGS: {
+            return state;
+        }
+        case ADD_EMOTION_LOG: {
+            return [...state, action.payload];
+        }
         default:
             return state;
     }
 }
+
+export default emotionLogsReducer;
