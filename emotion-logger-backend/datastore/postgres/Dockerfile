@@ -1,3 +1,4 @@
 FROM postgres:14.0-alpine
 ENV POSTGRES_PASSWORD=admin
 ENV POSTGRES_DB=emotiondb
+EXPOSE 5432

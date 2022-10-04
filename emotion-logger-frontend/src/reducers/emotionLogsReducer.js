@@ -1,6 +1,11 @@
-import {ADD_EMOTION_LOG, GET_USER_EMOTION_LOGS} from '../actions/emotionLogActions'
+import {
+    EMOTION_LOG_SAVED,
+    EMOTION_LOG_SAVING,
+    EMOTION_LOGS_LOADED,
+    EMOTION_LOGS_LOADING
+} from '../actions/emotionLogActions'
 
-const emotionsLogs = [
+const data = [
     {
         id: 'emo1',
         name: "Fear",
@@ -53,13 +58,38 @@ const emotionsLogs = [
     }
 ]
 
-const emotionLogsReducer = (state = emotionsLogs, action) => {
+const initialState = {
+    emotionLogs: data,
+    loading: false,
+}
+
+const emotionLogsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_USER_EMOTION_LOGS: {
-            return state;
+        case EMOTION_LOGS_LOADING: {
+            return {
+                ...state,
+                loading: true,
+            }
         }
-        case ADD_EMOTION_LOG: {
-            return [...state, action.payload];
+        case EMOTION_LOGS_LOADED: {
+            return {
+                ...state,
+                loading: false,
+                emotionLogs: action.payload,
+            }
+        }
+        case EMOTION_LOG_SAVING: {
+            return {
+                ...state,
+                loading: true,
+            }
+        }
+        case EMOTION_LOG_SAVED: {
+            return {
+                ...state,
+                loading: false,
+                emotionLogs: [...state.emotionLogs, action.payload.emotionLog]
+            }
         }
         default:
             return state;

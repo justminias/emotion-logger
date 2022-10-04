@@ -1,16 +1,39 @@
-export const ADD_EMOTION_LOG = 'ADD_EMOTION_LOG';
-export const GET_USER_EMOTION_LOGS = 'GET_USER_EMOTION_LOGS';
+import axios from "axios";
 
-export const addEmotionLog = ({id, name, startTime, endTime, description, reason, solutions, date}) => ({
-    type: ADD_EMOTION_LOG,
-    payload: {
-        id,
-        name,
-        startTime,
-        endTime,
-        description,
-        reason,
-        solutions,
-        date,
-    }
+export const EMOTION_LOG_SAVING = 'EMOTION_LOG_SAVING';
+export const EMOTION_LOG_SAVED = 'EMOTION_LOG_SAVED';
+export const EMOTION_LOGS_LOADING = 'EMOTION_LOGS_LOADING';
+export const EMOTION_LOGS_LOADED = 'EMOTION_LOGS_LOADED';
+
+export const emotionLogLoading = () => ({
+    type: EMOTION_LOGS_LOADING
+})
+
+export const emotionLogsLoaded = (data) => ({
+    type: EMOTION_LOGS_LOADED,
+    payload: data.emotionLogs
+})
+
+export const emotionLogSaving = () => ({
+    type: EMOTION_LOG_SAVING
+})
+
+export const emotionLogSaved = (data) => ({
+    type: EMOTION_LOG_SAVED,
+    payload: data
 });
+
+export const saveEmotionLogThunk = (emotionLog) => (dispatch) => {
+    dispatch(emotionLogSaving(emotionLog));
+    return axios.post('http://localhost:8080/api/emotion-log/add', emotionLog)
+        .then(() => dispatch(emotionLogSaved(emotionLog)))
+        .catch(error => console.log(error));
+}
+
+export const getEmotionLogsThunk = () => (dispatch) => {
+    dispatch(emotionLogLoading());
+    return axios.post('http://localhost:8080/api/emotion-log', { userId: '1'})
+        .then(response => response.data)
+        .then(data => dispatch(emotionLogsLoaded(data)))
+        .catch(error => console.log(error));
+}

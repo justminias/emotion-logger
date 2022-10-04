@@ -4,7 +4,7 @@ const chosenLogReducer = (state = null, action) => {
 
     switch (action.type) {
         case CHANGE_CURRENT_EMOTION_LOG: {
-            state = action.payload
+            state = action.payload.currentEmotionLog
             return state;
         }
         case CLEAR_CURRENT_EMOTION_LOG: {

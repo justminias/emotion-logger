@@ -21,9 +21,9 @@ public class EmotionLogConverter implements Converter<EmotionLogDto, EmotionLogE
 
         return EmotionLogEntity.builder()
                 .id(emotionLogDto.getId() == null ? UUID.randomUUID().toString() : emotionLogDto.getId())
-                .user(userRepository.getReferenceById(emotionLogDto.getUserId()))
-                .emotion(emotionRepository.getReferenceById(emotionLogDto.getEmotionId()))
-                .reason(reasonRepository.getReferenceById(emotionLogDto.getReasonId()))
+                .user(emotionLogDto.getUserId() == null ? null : userRepository.getReferenceById(emotionLogDto.getUserId()))
+                .emotion(emotionLogDto.getEmotionId() == null ? null : emotionRepository.getReferenceById(emotionLogDto.getEmotionId()))
+                .reason(emotionLogDto.getReasonId() == null ? null : reasonRepository.getReferenceById(emotionLogDto.getReasonId()))
                 .startTime(emotionLogDto.getStartTime())
                 .endTime(emotionLogDto.getEndTime())
                 .date(emotionLogDto.getDate())

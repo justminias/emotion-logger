@@ -6,11 +6,13 @@ import 'react-day-picker/dist/style.css';
 
 import {changeCurrentEmotionLog, clearCurrentEmotionLog} from '../../actions/chosenLogActions';
 import {useSelector, useDispatch} from "react-redux";
+import {getEmotionLogsThunk} from "../../actions/emotionLogActions";
 
 export const EmotionSection = () => {
     const [activeEmotionId, setActiveEmotionId] = useState()
     const [selectedDate, setSelectedDate] = useState(new Date())
-    const emotionLogs = useSelector(store => store.emotionLogs)
+    const emotionLogs = useSelector(store => store.emotionLogs.emotionLogs)
+    console.log(emotionLogs);
     const dispatch = useDispatch();
 
     const DATE_FORMAT = 'yyyy-MM-dd'
@@ -27,6 +29,10 @@ export const EmotionSection = () => {
         setActiveEmotionId(emotionLogId)
         handleEmotionLogChange(emotionLogId)
     }
+
+    useEffect(() => {
+        dispatch(getEmotionLogsThunk())
+    }, []);
 
     useEffect(() => {
         const firstLogOnDay = emotionLogs
@@ -48,7 +54,7 @@ export const EmotionSection = () => {
                 required={true}
             />
             <div className="emotion-list">
-                {
+                {   emotionLogs &&
                     emotionLogs
                         .filter(emotionLog => emotionLog.date === format(selectedDate, DATE_FORMAT))
                         .map(emotionLog =>
