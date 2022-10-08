@@ -25,6 +25,8 @@ public class UserEntity {
     private String lastName;
     private Integer age;
     private LocalDateTime registrationDate;
+    private String email;
+    private String password;
 
     @OneToMany(mappedBy = "user")
     @JsonBackReference

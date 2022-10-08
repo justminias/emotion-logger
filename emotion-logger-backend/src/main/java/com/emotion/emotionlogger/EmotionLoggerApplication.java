@@ -35,7 +35,14 @@ public class EmotionLoggerApplication implements CommandLineRunner {
         SolutionEntity solution1 = new SolutionEntity("1234", "Listening to music");
         SolutionEntity solution2 = new SolutionEntity("3456", "Jogging");
         ReasonEntity reason = new ReasonEntity("234345", "reason", null);
-        UserEntity user = new UserEntity("1", "Name", "Surname", 15);
+        UserEntity user = UserEntity.builder()
+                .id("1")
+                .firstName("Name")
+                .lastName("Surname")
+                .age(20)
+                .email("mail@ex.com")
+                .password("pass")
+                .build();
         userRepository.save(user);
         reasonRepository.save(reason);
         emotionRepository.save(emotion);

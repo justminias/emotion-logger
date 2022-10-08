@@ -1,9 +1,7 @@
 import axios from "axios";
 
-const API_URL = '/api'
-
 const executeBasicAuthenticationService = (username, password) => {
-    return axios.get(API_URL + '/auth',
+    return axios.get('http://localhost:8080/api/auth',
         { headers: { authorization: createBasicAuthToken(username, password) } })
 }
 
