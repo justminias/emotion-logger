@@ -63,7 +63,7 @@ const Login = ({setLoggedIn}) => {
 
             <div className="columns">
                 <div className="column is-4 is-offset-4">
-                    <button className="button is-primary is-normal" id="inputSubmit" onClick={handleSubmit}>Login
+                    <button className="button red-button is-normal" id="inputSubmit" onClick={handleSubmit}>Login
                     </button>
                 </div>
             </div>
