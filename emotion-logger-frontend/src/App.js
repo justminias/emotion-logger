@@ -7,6 +7,8 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {EmptyEmotionLog} from "./components/emotion/empty/EmptyEmotionLog";
 import {NewEmotionLog} from "./components/emotion/new/NewEmotionLog";
+import Login from "./components/login/Login";
+import {useState} from "react";
 
 
 const Body = () => {
@@ -19,7 +21,7 @@ const Body = () => {
                 <EmotionSection/>
             </div>
             <div className="column is-8 pt-6 pl-6">
-                { currentEmotionLog !== null ? <ChosenEmotionLog /> : <EmptyEmotionLog/>}
+                {currentEmotionLog !== null ? <ChosenEmotionLog/> : <EmptyEmotionLog/>}
             </div>
         </div>
     )
@@ -27,11 +29,25 @@ const Body = () => {
 
 const App = () => {
 
+    const [loggedIn, setLoggedIn] = useState(false);
+
     return (
         <Router>
-            <Route path="/" component={Menubar}/>
-            <Route exact path="/" component={Body}/>
-            <Route exact path="/log-emotion" component={NewEmotionLog}/>
+            <Route path="/">
+                <Menubar loggedIn={loggedIn} />
+            </Route>
+            {loggedIn &&
+                <>
+                    <Route exact path="/" component={Body}/>
+                    <Route exact path="/log-emotion" component={NewEmotionLog}/>
+                </>
+            }
+
+            {!loggedIn &&
+                <Route exact path="/">
+                    <Login setLoggedIn={setLoggedIn} />
+                </Route>
+            }
             <Route path="/" component={FooterSection}/>
         </Router>
     );

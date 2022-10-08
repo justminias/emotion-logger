@@ -2,28 +2,18 @@ import {SolutionSection} from "../../solution/SolutionSection";
 import {useHistory} from "react-router-dom";
 import "./NewEmotionLog.css";
 import {saveEmotionLogThunk} from "../../../actions/emotionLogActions";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 import {useState} from "react";
+import {useForm} from "react-hook-form";
 
 export const NewEmotionLog = () => {
 
     const history = useHistory();
     const dispatch = useDispatch();
     const [loading, isLoading] = useState(false);
-    const [formInput, setFormInput] = useState({startTime: '08:30', endTime: '10:00', reason: '', description: ''});
-
-    const handleSubmit = (event) => {
-        dispatch(saveEmotionLogThunk(formInput));
-    }
-
-    const handleInputChange = (event) => {
-        console.log("Event: ", event)
-        setFormInput({
-            ...formInput,
-            [event.target.name]: event.target.value
-        })
-    }
+    const { register, handleSubmit, setValue } = useForm();
+    const chosenSolutions = useSelector(store => store.solutions.chosenSolutions)
 
     const override = {
         display: "block",
@@ -31,9 +21,15 @@ export const NewEmotionLog = () => {
         borderColor: "red",
     };
 
+    const onSubmit = (data) => {
+        setValue("chosenSolutions", chosenSolutions);
+        console.log(data);
+        dispatch(saveEmotionLogThunk(data));
+    }
+
     return (
         <div className="columns">
-            <div className="column is-3">
+            <div className="column is-2">
                 <button className="button icon-text mt-6 ml-6" onClick={() => history.goBack()}>
                     <span className="icon">
                             <i className="fas fa-solid fa-angle-left"></i>
@@ -41,20 +37,26 @@ export const NewEmotionLog = () => {
                     <span>Back</span>
                 </button>
             </div>
-            <div className="column is-8 is-offset-1">
-                <form onSubmit={handleSubmit}>
-                    <div id="current-emotion-name" className="block">Fear</div>
-
+            <div className="column is-7 is-offset-1">
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <div id="current-emotion-name" className="block mt-4">
+                        <label htmlFor="emotionName"><strong>Emotion: </strong></label>
+                            <input
+                                className="input mt-2"
+                                type="text"
+                                placeholder="Type your emotion here..."
+                                {...register("emotionName", { required: true })}
+                            />
+                        </div>
                     <div>
                     <span className="time-picker">
                         <label htmlFor="start-time"><strong>Started at </strong>
                             <input
                                 id="start-time"
-                                name="startTime"
                                 className="time-picker"
                                 type="time"
-                                value={formInput.startTime}
-                                onChange={handleInputChange}
+                                defaultValue="08:30"
+                                {...register("startTime", { required: true })}
                             />
                         </label>
                     </span>
@@ -63,38 +65,33 @@ export const NewEmotionLog = () => {
                         <label htmlFor="end-time"><strong>Ended at </strong>
                             <input
                                 id="end-time"
-                                name="endTime"
                                 className="time-picker"
                                 type="time"
-                                value={formInput.endTime}
-                                onChange={handleInputChange}
+                                defaultValue="12:30"
+                                {...register("endTime", { required: true })}
                             />
                         </label>
                         </span>
                     </div>
 
-                    <div className="field mt-3">
-                        <label className="label">Description</label>
+                    <div className="field mt-5">
+                        <label className="label">Description:</label>
                         <div className="control">
                             <textarea
-                                name="description"
                                 className="textarea"
                                 placeholder="Add description here..."
-                                value={formInput.description}
-                                onChange={handleInputChange}
+                                {...register("description", { required: true })}
                             />
                         </div>
                     </div>
 
-                    <div className="field">
-                        <label className="label">Reason</label>
+                    <div className="field mt-5 mb-5">
+                        <label className="label">Reason:</label>
                         <div className="control">
                             <textarea
-                                name="reason"
                                 className="textarea"
                                 placeholder="Add reason here..."
-                                value={formInput.reason}
-                                onChange={handleInputChange}
+                                {...register("reason", { required: true })}
                             />
                         </div>
                     </div>
