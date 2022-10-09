@@ -2,12 +2,10 @@ package com.emotion.emotionlogger.service;
 
 import com.emotion.emotionlogger.converter.EmotionConverter;
 import com.emotion.emotionlogger.dto.EmotionDto;
-import com.emotion.emotionlogger.entity.EmotionEntity;
 import com.emotion.emotionlogger.repository.EmotionRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor

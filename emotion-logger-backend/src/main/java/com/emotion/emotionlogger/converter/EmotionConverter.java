@@ -1,7 +1,6 @@
 package com.emotion.emotionlogger.converter;
 
 import com.emotion.emotionlogger.dto.EmotionDto;
-import com.emotion.emotionlogger.entity.EmotionEntity;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
