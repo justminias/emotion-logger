@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -23,6 +24,7 @@ public class EmotionLoggerApplication implements CommandLineRunner {
     SolutionRepository solutionRepository;
     ReasonRepository reasonRepository;
     UserRepository userRepository;
+    BCryptPasswordEncoder passwordEncoder;
 
     public static void main(String[] args) {
         SpringApplication.run(EmotionLoggerApplication.class, args);
@@ -32,6 +34,8 @@ public class EmotionLoggerApplication implements CommandLineRunner {
     @Transactional
     public void run(String... args) throws Exception {
         EmotionEntity emotion = new EmotionEntity("5", "Anger");
+        EmotionEntity emotion2 = new EmotionEntity("6", "Hate");
+        EmotionEntity emotion3 = new EmotionEntity("7", "Fear");
         SolutionEntity solution1 = new SolutionEntity("1234", "Listening to music");
         SolutionEntity solution2 = new SolutionEntity("3456", "Jogging");
         ReasonEntity reason = new ReasonEntity("234345", "reason", null);
@@ -41,14 +45,17 @@ public class EmotionLoggerApplication implements CommandLineRunner {
                 .lastName("Surname")
                 .age(20)
                 .email("mail@ex.com")
-                .password("pass")
+                .password(passwordEncoder.encode("pass"))
                 .build();
-        userRepository.save(user);
-        reasonRepository.save(reason);
-        emotionRepository.save(emotion);
-        solutionRepository.save(solution1);
-        solutionRepository.save(solution2);
-        emotionLogRepository.save(EmotionLogEntity.builder()
+        UserEntity user2 = UserEntity.builder()
+                .id("2")
+                .firstName("Kamil")
+                .lastName("Kazmierczak")
+                .age(26)
+                .email("admin")
+                .password(passwordEncoder.encode("admin"))
+                .build();
+        EmotionLogEntity log1 = EmotionLogEntity.builder()
                 .id(UUID.randomUUID().toString())
                 .date(LocalDate.now())
                 .startTime(LocalTime.now())
@@ -58,6 +65,34 @@ public class EmotionLoggerApplication implements CommandLineRunner {
                 .reason(reason)
                 .emotion(emotion)
                 .solutions(List.of(solution1, solution2))
-                .build());
+                .build();
+        EmotionLogEntity log2 = EmotionLogEntity.builder()
+                .id(UUID.randomUUID().toString())
+                .date(LocalDate.now())
+                .startTime(LocalTime.now())
+                .endTime(LocalTime.now().plusHours(2))
+                .description("desc")
+                .user(user2)
+                .reason(reason)
+                .emotion(emotion2)
+                .solutions(List.of(solution1, solution2))
+                .build();
+        EmotionLogEntity log3 = EmotionLogEntity.builder()
+                .id(UUID.randomUUID().toString())
+                .date(LocalDate.now())
+                .startTime(LocalTime.now())
+                .endTime(LocalTime.now().plusHours(3))
+                .description("desc")
+                .user(user2)
+                .reason(reason)
+                .emotion(emotion3)
+                .solutions(List.of(solution1, solution2))
+                .build();
+        userRepository.saveAll(List.of(user, user2));
+        reasonRepository.save(reason);
+        emotionRepository.saveAll(List.of(emotion, emotion2, emotion3));
+        solutionRepository.save(solution1);
+        solutionRepository.save(solution2);
+        emotionLogRepository.saveAll(List.of(log1, log2, log3));
     }
 }
