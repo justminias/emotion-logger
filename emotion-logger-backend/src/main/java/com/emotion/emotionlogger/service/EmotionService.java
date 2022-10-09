@@ -6,7 +6,9 @@ import com.emotion.emotionlogger.entity.EmotionEntity;
 import com.emotion.emotionlogger.repository.EmotionRepository;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class EmotionService {
@@ -19,11 +21,11 @@ public class EmotionService {
         emotionRepository.save(convertedEmotion);
     }
 
-    public EmotionDto readEmotion(String id) {
-        Optional<EmotionEntity> result = emotionRepository.findById(id);
-        EmotionEntity emotion = result.orElseThrow(NullPointerException::new);
-        EmotionDto convertedEmotion = emotionConverter.convertReverse(emotion);
-        return convertedEmotion;
+    public List<EmotionDto> getAll() {
+        List<EmotionEntity> emotionEntities = emotionRepository.findAll();
+        return emotionEntities.stream()
+                .map(e -> emotionConverter.convertReverse(e))
+                .collect(Collectors.toList());
     }
 
     public void modifyEmotion(EmotionDto emotionDto) {

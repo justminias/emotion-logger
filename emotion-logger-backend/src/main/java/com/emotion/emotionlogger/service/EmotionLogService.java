@@ -57,7 +57,6 @@ public class EmotionLogService {
     }
 
     public EmotionLogsResponse getEmotionLogsByUser(EmotionLogsRequest emotionLogsRequest) {
-//        List<EmotionLogEntity> emotionLogEntities = emotionLogRepository.findAllByUserId(emotionLogsRequest.getUserId());
         List<EmotionLogEntity> emotionLogEntities = emotionLogRepository.findAll();
         List<EmotionLogResponse> emotionLogResponses = emotionLogEntities.stream()
                 .map(emotionLogEntityToEmotionLogResponseConverter::convert)

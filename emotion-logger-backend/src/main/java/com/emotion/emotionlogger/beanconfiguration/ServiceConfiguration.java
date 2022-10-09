@@ -22,11 +22,6 @@ public class ServiceConfiguration {
     }
 
     @Bean
-    public ReasonService reasonService(ReasonRepository reasonRepository, ReasonConverter reasonConverter) {
-        return new ReasonService(reasonRepository, reasonConverter);
-    }
-
-    @Bean
     public SolutionService solutionService(SolutionRepository solutionRepository, SolutionConverter solutionConverter) {
         return new SolutionService(solutionRepository, solutionConverter);
     }

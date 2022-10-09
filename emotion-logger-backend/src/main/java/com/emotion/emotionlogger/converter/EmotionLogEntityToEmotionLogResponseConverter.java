@@ -16,7 +16,7 @@ public class EmotionLogEntityToEmotionLogResponseConverter implements Converter<
                 .endTime(emotionLogEntity.getEndTime())
                 .date(emotionLogEntity.getDate())
                 .description(emotionLogEntity.getDescription())
-                .reason(emotionLogEntity.getReason().getName())
+                .reason(emotionLogEntity.getReason())
                 .solutions(emotionLogEntity.getSolutions().stream()
                         .map(solutionEntity -> solutionEntity.getName())
                         .collect(Collectors.toList()))

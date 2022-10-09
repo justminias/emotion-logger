@@ -5,6 +5,8 @@ import com.emotion.emotionlogger.service.EmotionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/emotion")
@@ -17,9 +19,9 @@ public class EmotionController {
         emotionService.createEmotion(emotionDto);
     }
 
-    @GetMapping("/select/{id}")
-    public EmotionDto selectEmotion(@PathVariable String id) {
-        return emotionService.readEmotion(id);
+    @GetMapping()
+    public List<EmotionDto> getAll() {
+        return emotionService.getAll();
     }
 
     @PostMapping("/update")

@@ -35,13 +35,10 @@ public class EmotionLogEntity {
     private LocalTime endTime;
     private LocalDate date;
     private String description;
+    private String reason;
 
     @ManyToMany
     @JoinTable(name = "emotion_log_solution", joinColumns = @JoinColumn(name = "solution_id"), inverseJoinColumns = @JoinColumn(name = "emotion_log_id"))
     @JsonManagedReference
     private List<SolutionEntity> solutions;
-
-    @OneToOne
-    @JoinColumn(name = "reason_id")
-    private ReasonEntity reason;
 }

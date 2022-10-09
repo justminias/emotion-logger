@@ -22,7 +22,6 @@ public class EmotionLoggerApplication implements CommandLineRunner {
     EmotionRepository emotionRepository;
     EmotionLogRepository emotionLogRepository;
     SolutionRepository solutionRepository;
-    ReasonRepository reasonRepository;
     UserRepository userRepository;
     BCryptPasswordEncoder passwordEncoder;
 
@@ -38,7 +37,6 @@ public class EmotionLoggerApplication implements CommandLineRunner {
         EmotionEntity emotion3 = new EmotionEntity("7", "Fear");
         SolutionEntity solution1 = new SolutionEntity("1234", "Listening to music");
         SolutionEntity solution2 = new SolutionEntity("3456", "Jogging");
-        ReasonEntity reason = new ReasonEntity("234345", "reason", null);
         UserEntity user = UserEntity.builder()
                 .id("1")
                 .firstName("Name")
@@ -62,7 +60,6 @@ public class EmotionLoggerApplication implements CommandLineRunner {
                 .endTime(LocalTime.now().plusHours(2))
                 .description("desc")
                 .user(user)
-                .reason(reason)
                 .emotion(emotion)
                 .solutions(List.of(solution1, solution2))
                 .build();
@@ -73,7 +70,6 @@ public class EmotionLoggerApplication implements CommandLineRunner {
                 .endTime(LocalTime.now().plusHours(2))
                 .description("desc")
                 .user(user2)
-                .reason(reason)
                 .emotion(emotion2)
                 .solutions(List.of(solution1, solution2))
                 .build();
@@ -84,12 +80,10 @@ public class EmotionLoggerApplication implements CommandLineRunner {
                 .endTime(LocalTime.now().plusHours(3))
                 .description("desc")
                 .user(user2)
-                .reason(reason)
                 .emotion(emotion3)
                 .solutions(List.of(solution1, solution2))
                 .build();
         userRepository.saveAll(List.of(user, user2));
-        reasonRepository.save(reason);
         emotionRepository.saveAll(List.of(emotion, emotion2, emotion3));
         solutionRepository.save(solution1);
         solutionRepository.save(solution2);

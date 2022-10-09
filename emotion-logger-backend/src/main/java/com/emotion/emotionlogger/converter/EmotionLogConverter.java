@@ -3,7 +3,6 @@ package com.emotion.emotionlogger.converter;
 import com.emotion.emotionlogger.dto.EmotionLogDto;
 import com.emotion.emotionlogger.entity.EmotionLogEntity;
 import com.emotion.emotionlogger.repository.EmotionRepository;
-import com.emotion.emotionlogger.repository.ReasonRepository;
 import com.emotion.emotionlogger.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -12,7 +11,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class EmotionLogConverter implements Converter<EmotionLogDto, EmotionLogEntity> {
 
-    private final ReasonRepository reasonRepository;
     private final UserRepository userRepository;
     private final EmotionRepository emotionRepository;
 
@@ -23,7 +21,7 @@ public class EmotionLogConverter implements Converter<EmotionLogDto, EmotionLogE
                 .id(emotionLogDto.getId() == null ? UUID.randomUUID().toString() : emotionLogDto.getId())
                 .user(emotionLogDto.getUserId() == null ? null : userRepository.getReferenceById(emotionLogDto.getUserId()))
                 .emotion(emotionLogDto.getEmotionId() == null ? null : emotionRepository.getReferenceById(emotionLogDto.getEmotionId()))
-                .reason(emotionLogDto.getReasonId() == null ? null : reasonRepository.getReferenceById(emotionLogDto.getReasonId()))
+                .reason(emotionLogDto.getReason() == null ? null : emotionLogDto.getReason())
                 .startTime(emotionLogDto.getStartTime())
                 .endTime(emotionLogDto.getEndTime())
                 .date(emotionLogDto.getDate())
@@ -37,7 +35,7 @@ public class EmotionLogConverter implements Converter<EmotionLogDto, EmotionLogE
                 .id(emotionLogEntity.getId())
                 .userId(emotionLogEntity.getUser().getId())
                 .emotionId(emotionLogEntity.getEmotion().getId())
-                .reasonId(emotionLogEntity.getReason().getId())
+                .reason(emotionLogEntity.getReason())
                 .startTime(emotionLogEntity.getStartTime())
                 .endTime(emotionLogEntity.getEndTime())
                 .date(emotionLogEntity.getDate())

@@ -2,11 +2,9 @@ package com.emotion.emotionlogger.controller;
 
 import com.emotion.emotionlogger.dto.EmotionDto;
 import com.emotion.emotionlogger.dto.EmotionLogDto;
-import com.emotion.emotionlogger.dto.ReasonDto;
 import com.emotion.emotionlogger.dto.UserDto;
 import com.emotion.emotionlogger.service.EmotionLogService;
 import com.emotion.emotionlogger.service.EmotionService;
-import com.emotion.emotionlogger.service.ReasonService;
 import com.emotion.emotionlogger.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
