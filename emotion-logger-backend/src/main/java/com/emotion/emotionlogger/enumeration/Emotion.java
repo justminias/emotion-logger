@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Getter
-public enum EmotionName {
+public enum Emotion {
     FEAR("Fear"),
     SADNESS("Sadness"),
     PAIN("Pain");
@@ -17,8 +17,8 @@ public enum EmotionName {
     private final String value;
 
     public static List<String> getAll() {
-        return Arrays.stream(EmotionName.values())
-                .map(EmotionName::getValue)
+        return Arrays.stream(Emotion.values())
+                .map(Emotion::getValue)
                 .collect(Collectors.toList());
     }
 }

@@ -17,11 +17,6 @@ public class ServiceConfiguration {
     }
 
     @Bean
-    public EmotionService emotionService(EmotionRepository emotionRepository, EmotionConverter emotionConverter) {
-        return new EmotionService(emotionRepository, emotionConverter);
-    }
-
-    @Bean
     public SolutionService solutionService(SolutionRepository solutionRepository, SolutionConverter solutionConverter) {
         return new SolutionService(solutionRepository, solutionConverter);
     }

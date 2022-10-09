@@ -16,7 +16,7 @@ import java.util.List;
 public class EmotionLogResponse implements Dto {
 
     private String id;
-    private String emotionName;
+    private String emotion;
     private LocalTime startTime;
     private LocalTime endTime;
     private LocalDate date;

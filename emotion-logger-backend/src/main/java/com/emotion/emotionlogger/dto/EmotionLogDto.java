@@ -1,5 +1,6 @@
 package com.emotion.emotionlogger.dto;
 
+import com.emotion.emotionlogger.enumeration.Emotion;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -16,7 +17,7 @@ public class EmotionLogDto implements Dto {
 
     private String id;
     private String userId;
-    private String emotionId;
+    private Emotion emotion;
     private String reason;
     private LocalTime startTime;
     private LocalTime endTime;

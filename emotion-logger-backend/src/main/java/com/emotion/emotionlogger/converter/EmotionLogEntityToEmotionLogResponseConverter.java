@@ -11,7 +11,7 @@ public class EmotionLogEntityToEmotionLogResponseConverter implements Converter<
     public EmotionLogResponse convert(EmotionLogEntity emotionLogEntity) {
         return EmotionLogResponse.builder()
                 .id(emotionLogEntity.getId())
-                .emotionName(emotionLogEntity.getEmotion().getName())
+                .emotion(emotionLogEntity.getEmotion().toString())
                 .startTime(emotionLogEntity.getStartTime())
                 .endTime(emotionLogEntity.getEndTime())
                 .date(emotionLogEntity.getDate())

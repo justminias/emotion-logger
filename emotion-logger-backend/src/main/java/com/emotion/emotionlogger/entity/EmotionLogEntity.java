@@ -1,5 +1,6 @@
 package com.emotion.emotionlogger.entity;
 
+import com.emotion.emotionlogger.enumeration.Emotion;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -27,9 +28,8 @@ public class EmotionLogEntity {
     @JsonManagedReference
     private UserEntity user;
 
-    @ManyToOne
-    @JoinColumn(name = "emotion_id")
-    private EmotionEntity emotion;
+    @Enumerated(EnumType.STRING)
+    private Emotion emotion;
 
     private LocalTime startTime;
     private LocalTime endTime;
