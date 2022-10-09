@@ -1,12 +1,12 @@
 import './EmotionSection.css'
 import {useEffect, useState} from "react";
 import {DayPicker} from "react-day-picker";
-import {format} from "date-fns";
 import 'react-day-picker/dist/style.css';
 
 import {changeCurrentEmotionLog, clearCurrentEmotionLog} from '../../actions/chosenLogActions';
 import {useSelector, useDispatch} from "react-redux";
 import {getEmotionLogsThunk} from "../../actions/emotionLogActions";
+import ArrayUtil from "../../utils/ArrayUtil";
 
 export const EmotionSection = () => {
     const [activeEmotionId, setActiveEmotionId] = useState()
@@ -15,9 +15,8 @@ export const EmotionSection = () => {
     console.log(emotionLogs);
     const dispatch = useDispatch();
 
-    const DATE_FORMAT = 'yyyy-MM-dd'
-
     const handleEmotionLogChange = (emotionLogId) => {
+        console.log(emotionLogId)
         dispatch(changeCurrentEmotionLog(emotionLogs.find(emotionLog => emotionLog.id === emotionLogId)));
     }
 
@@ -32,17 +31,16 @@ export const EmotionSection = () => {
 
     useEffect(() => {
         dispatch(getEmotionLogsThunk())
-    }, []);
-
-    useEffect(() => {
         const firstLogOnDay = emotionLogs
-            .filter(emotionLog => emotionLog.date === format(selectedDate, DATE_FORMAT))
+            .filter(emotionLog => ArrayUtil.equals(emotionLog.date, dateToArray(selectedDate)))
             .find(Boolean);
 
         firstLogOnDay === undefined
             ? dispatch(clearCurrentEmotionLog())
             : toggleEmotion(firstLogOnDay.id)
     }, [selectedDate])
+
+    const dateToArray = (date) => [date.getFullYear(), date.getMonth()+1, date.getDate()];
 
     return (
         <>
@@ -56,13 +54,13 @@ export const EmotionSection = () => {
             <div className="emotion-list">
                 {   emotionLogs &&
                     emotionLogs
-                        .filter(emotionLog => emotionLog.date === format(selectedDate, DATE_FORMAT))
+                        .filter(emotionLog => ArrayUtil.equals(emotionLog.date, dateToArray(selectedDate)))
                         .map(emotionLog =>
                         <div key={emotionLog.id}
                              id={emotionLog.id}
                              className="emotion-list-item is-flex is-justify-content-space-between"
                              onClick={() => toggleEmotion(emotionLog.id)}>
-                            <span>{emotionLog.name}</span>
+                            <span>{emotionLog.emotionName}</span>
                             <span><i className="fas fa-solid fa-angle-left"></i></span>
                         </div>)
                 }

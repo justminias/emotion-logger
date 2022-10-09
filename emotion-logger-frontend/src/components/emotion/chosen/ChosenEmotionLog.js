@@ -4,13 +4,18 @@ export const ChosenEmotionLog = () => {
 
     const currentEmotionLog = useSelector(store => store.chosenLog)
 
+    const printTime = ([hour, minute]) => {
+        const minuteFormatted = minute < 10 ? `0${minute}` : `${minute}`;
+        return `${hour}:${minuteFormatted}`;
+    }
+
     return (
         <>
             <section id="current-emotion-name" className="block">
                         <span className="has-text-weight-bold is-size-2">
-                            {currentEmotionLog.name}
+                            {currentEmotionLog.emotionName}
                             </span>
-                <span className="pl-6">Lasted from {currentEmotionLog.startTime} to {currentEmotionLog.endTime}</span>
+                <span className="pl-6">Lasted from {printTime(currentEmotionLog.startTime)} to {printTime(currentEmotionLog.endTime)}</span>
             </section>
 
             <div className="block pt-6">
