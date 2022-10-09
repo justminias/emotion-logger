@@ -13,12 +13,6 @@ public class TestCleaner {
     EmotionLogRepository emotionLogRepository;
 
     @Autowired
-    EmotionRepository emotionRepository;
-
-    @Autowired
-    ReasonRepository reasonRepository;
-
-    @Autowired
     SolutionRepository solutionRepository;
 
     @Autowired
@@ -26,8 +20,6 @@ public class TestCleaner {
 
     public void cleanAllRepositories() {
         emotionLogRepository.deleteAll();
-        emotionRepository.deleteAll();
-        reasonRepository.deleteAll();
         solutionRepository.deleteAll();
         userRepository.deleteAll();
     }

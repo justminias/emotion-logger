@@ -4,6 +4,7 @@ import com.emotion.emotionlogger.EmotionLoggerIntegrationTest;
 import com.emotion.emotionlogger.dto.EmotionLogDto;
 import com.emotion.emotionlogger.dto.EmotionLogResponse;
 import com.emotion.emotionlogger.dto.EmotionLogsRequest;
+import com.emotion.emotionlogger.enumeration.Emotion;
 import com.emotion.emotionlogger.service.EmotionLogService;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -57,8 +58,8 @@ public class EmotionLogControllerTest {
                 .body(EmotionLogDto.builder()
                         .id("1")
                         .userId("1")
-                        .emotionId("1")
-                        .reasonId("1")
+                        .emotion(Emotion.FEAR)
+                        .reason("Reason1")
                         .startTime(LocalTime.of(12, 30, 33))
                         .endTime(LocalTime.of(13, 12, 33))
                         .date(LocalDate.of(2020, Month.SEPTEMBER, 12))
@@ -74,8 +75,8 @@ public class EmotionLogControllerTest {
         Assertions.assertEquals(EmotionLogDto.builder()
                 .id("1")
                 .userId("1")
-                .emotionId("1")
-                .reasonId("1")
+                .emotion(Emotion.FEAR)
+                .reason("Reason1")
                 .startTime(LocalTime.of(12, 30, 33))
                 .endTime(LocalTime.of(13, 12, 33))
                 .date(LocalDate.of(2020, Month.SEPTEMBER, 12))
@@ -95,8 +96,8 @@ public class EmotionLogControllerTest {
                 .body(EmotionLogDto.builder()
                         .id("3")
                         .userId("3")
-                        .emotionId("3")
-                        .reasonId("3")
+                        .emotion(Emotion.FEAR)
+                        .reason("Reason3")
                         .startTime(LocalTime.of(12, 30, 33))
                         .endTime(LocalTime.of(13, 12, 33))
                         .date(LocalDate.of(2020, Month.SEPTEMBER, 12))
@@ -112,8 +113,8 @@ public class EmotionLogControllerTest {
         Assertions.assertEquals(EmotionLogDto.builder()
                 .id("3")
                 .userId("3")
-                .emotionId("3")
-                .reasonId("3")
+                .emotion(Emotion.FEAR)
+                .reason("Reason3")
                 .startTime(LocalTime.of(12, 30, 33))
                 .endTime(LocalTime.of(13, 12, 33))
                 .date(LocalDate.of(2020, Month.SEPTEMBER, 12))
@@ -163,7 +164,7 @@ public class EmotionLogControllerTest {
         Assertions.assertTrue(result.size() == 2);
         Assertions.assertEquals(EmotionLogResponse.builder()
                 .id("5")
-                .emotionName("Emotion5")
+                .emotion("PAIN")
                 .startTime(LocalTime.of(12, 30, 12))
                 .endTime(LocalTime.of(13, 12, 12))
                 .date(LocalDate.of(2020, Month.SEPTEMBER, 12))
@@ -174,12 +175,12 @@ public class EmotionLogControllerTest {
 
         Assertions.assertEquals(EmotionLogResponse.builder()
                 .id("6")
-                .emotionName("Emotion5")
+                .emotion("SADNESS")
                 .startTime(LocalTime.of(13, 13, 13))
                 .endTime(LocalTime.of(14, 13, 13))
                 .date(LocalDate.of(2021, Month.OCTOBER, 13))
                 .description("Description6")
-                .reason("Reason5")
+                .reason("Reason6")
                 .solutions(new ArrayList<>())
                 .build(), result.get(1));
     }
