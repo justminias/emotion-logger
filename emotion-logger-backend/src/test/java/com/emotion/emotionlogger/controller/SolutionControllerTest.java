@@ -12,7 +12,6 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import java.util.List;
 
 @EmotionLoggerIntegrationTest
-@Disabled
 public class SolutionControllerTest {
 
     @Autowired
