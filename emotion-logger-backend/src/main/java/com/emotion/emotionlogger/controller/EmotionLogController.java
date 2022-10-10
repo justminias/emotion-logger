@@ -5,9 +5,13 @@ import com.emotion.emotionlogger.dto.EmotionLogDto;
 import com.emotion.emotionlogger.dto.EmotionLogsRequest;
 import com.emotion.emotionlogger.dto.EmotionLogsResponse;
 import com.emotion.emotionlogger.dto.JoinSolutionsToEmotionLogRequest;
+import com.emotion.emotionlogger.enumeration.Emotion;
 import com.emotion.emotionlogger.service.EmotionLogService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -39,5 +43,10 @@ public class EmotionLogController {
     @PostMapping
     public EmotionLogsResponse getEmotionLogsByUserId(@RequestBody EmotionLogsRequest emotionLogsRequest) {
         return emotionLogService.getEmotionLogsByUser(emotionLogsRequest);
+    }
+
+    @GetMapping("/emotions")
+    public List<String> getAllEmotions() {
+        return Emotion.getAll();
     }
 }
