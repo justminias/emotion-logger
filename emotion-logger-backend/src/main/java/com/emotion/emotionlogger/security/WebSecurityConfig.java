@@ -24,7 +24,6 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(requests -> requests
                         .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .antMatchers(HttpMethod.POST, "/api/auth").permitAll()
-                        .antMatchers(HttpMethod.POST, "/api/emotion-log/add").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 .and()

@@ -5,7 +5,6 @@ import com.emotion.emotionlogger.dto.UserDto;
 import com.emotion.emotionlogger.enumeration.Emotion;
 import com.emotion.emotionlogger.service.EmotionLogService;
 import com.emotion.emotionlogger.service.UserService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +13,6 @@ import java.time.LocalTime;
 import java.time.Month;
 
 @Component
-@AllArgsConstructor
 public class EmotionLogControllerTestInitializer {
 
     @Autowired
