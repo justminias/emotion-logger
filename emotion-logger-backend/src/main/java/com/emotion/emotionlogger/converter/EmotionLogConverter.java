@@ -2,6 +2,7 @@ package com.emotion.emotionlogger.converter;
 
 import com.emotion.emotionlogger.dto.EmotionLogDto;
 import com.emotion.emotionlogger.entity.EmotionLogEntity;
+import com.emotion.emotionlogger.enumeration.Emotion;
 import com.emotion.emotionlogger.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +19,7 @@ public class EmotionLogConverter implements Converter<EmotionLogDto, EmotionLogE
         return EmotionLogEntity.builder()
                 .id(emotionLogDto.getId() == null ? UUID.randomUUID().toString() : emotionLogDto.getId())
                 .user(emotionLogDto.getUserId() == null ? null : userRepository.getReferenceById(emotionLogDto.getUserId()))
-                .emotion(emotionLogDto.getEmotion())
+                .emotion(Emotion.valueOf(emotionLogDto.getEmotion()))
                 .reason(emotionLogDto.getReason() == null ? null : emotionLogDto.getReason())
                 .startTime(emotionLogDto.getStartTime())
                 .endTime(emotionLogDto.getEndTime())
@@ -32,7 +33,7 @@ public class EmotionLogConverter implements Converter<EmotionLogDto, EmotionLogE
         return EmotionLogDto.builder()
                 .id(emotionLogEntity.getId())
                 .userId(emotionLogEntity.getUser().getId())
-                .emotion(emotionLogEntity.getEmotion())
+                .emotion(emotionLogEntity.getEmotion().name())
                 .reason(emotionLogEntity.getReason())
                 .startTime(emotionLogEntity.getStartTime())
                 .endTime(emotionLogEntity.getEndTime())
