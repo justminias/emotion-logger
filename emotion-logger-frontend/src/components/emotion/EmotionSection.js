@@ -7,17 +7,20 @@ import {changeCurrentEmotionLog, clearCurrentEmotionLog} from '../../actions/cho
 import {useSelector, useDispatch} from "react-redux";
 import {getEmotionLogsThunk} from "../../actions/emotionLogActions";
 import ArrayUtil from "../../utils/ArrayUtil";
+import {changeSelectedDate} from "../../actions/selectedDateActions";
 
 export const EmotionSection = () => {
     const [activeEmotionId, setActiveEmotionId] = useState()
-    const [selectedDate, setSelectedDate] = useState(new Date())
-    const emotionLogs = useSelector(store => store.emotionLogs.emotionLogs)
-    console.log(emotionLogs);
+    const emotionLogs = useSelector(store => store.emotionLogs.data)
+    const selectedDate = useSelector(store => store.selectedDate)
     const dispatch = useDispatch();
 
     const handleEmotionLogChange = (emotionLogId) => {
-        console.log(emotionLogId)
         dispatch(changeCurrentEmotionLog(emotionLogs.find(emotionLog => emotionLog.id === emotionLogId)));
+    }
+
+    const handleSelectedDateChange = selectedDate => {
+        dispatch(changeSelectedDate(selectedDate))
     }
 
     const toggleEmotion = (emotionLogId) => {
@@ -47,7 +50,7 @@ export const EmotionSection = () => {
             <DayPicker
                 mode="single"
                 selected={selectedDate}
-                onSelect={setSelectedDate}
+                onSelect={handleSelectedDateChange}
                 weekStartsOn={1}
                 required={true}
             />
@@ -59,8 +62,11 @@ export const EmotionSection = () => {
                         <div key={emotionLog.id}
                              id={emotionLog.id}
                              className="emotion-list-item is-flex is-justify-content-space-between"
-                             onClick={() => toggleEmotion(emotionLog.id)}>
-                            <span>{emotionLog.emotionName}</span>
+                             onClick={() => {
+                                 toggleEmotion(emotionLog.id)
+                                 console.log(emotionLog)
+                             }}>
+                            <span>{emotionLog.emotion}</span>
                             <span><i className="fas fa-solid fa-angle-left"></i></span>
                         </div>)
                 }

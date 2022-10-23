@@ -13,7 +13,7 @@ export const ChosenEmotionLog = () => {
         <>
             <section id="current-emotion-name" className="block">
                         <span className="has-text-weight-bold is-size-2">
-                            {currentEmotionLog.emotionName}
+                            {currentEmotionLog.emotion}
                             </span>
                 <span className="pl-6">Lasted from {printTime(currentEmotionLog.startTime)} to {printTime(currentEmotionLog.endTime)}</span>
             </section>

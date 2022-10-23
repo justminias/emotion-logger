@@ -14,6 +14,7 @@ export const NewEmotionLog = () => {
     const [loading, isLoading] = useState(false);
     const { register, handleSubmit, setValue } = useForm();
     const chosenSolutions = useSelector(store => store.solutions.chosenSolutions)
+    const selectedDate = useSelector(store => store.selectedDate);
 
     const override = {
         display: "block",
@@ -23,7 +24,7 @@ export const NewEmotionLog = () => {
 
     const onSubmit = (data) => {
         setValue("chosenSolutions", chosenSolutions);
-        console.log(data);
+        setValue("date", selectedDate)
         dispatch(saveEmotionLogThunk(data));
     }
 
@@ -40,12 +41,12 @@ export const NewEmotionLog = () => {
             <div className="column is-7 is-offset-1">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div id="current-emotion-name" className="block mt-4">
-                        <label htmlFor="emotionName"><strong>Emotion: </strong></label>
+                        <label htmlFor="emotion"><strong>Emotion: </strong></label>
                             <input
                                 className="input mt-2"
                                 type="text"
                                 placeholder="Type your emotion here..."
-                                {...register("emotionName", { required: true })}
+                                {...register("emotion", { required: true })}
                             />
                         </div>
                     <div>

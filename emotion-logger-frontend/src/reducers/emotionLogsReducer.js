@@ -6,7 +6,7 @@ import {
 } from '../actions/emotionLogActions'
 
 const initialState = {
-    emotionLogs: [],
+    data: [],
     loading: false,
 }
 
@@ -22,7 +22,7 @@ const emotionLogsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                emotionLogs: action.payload,
+                data: action.payload,
             }
         }
         case EMOTION_LOG_SAVING: {
@@ -35,7 +35,7 @@ const emotionLogsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                emotionLogs: [...state.emotionLogs, action.payload.emotionLog]
+                data: [...state.data, action.payload.emotionLog]
             }
         }
         default:
