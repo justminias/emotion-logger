@@ -17,7 +17,7 @@ public class EmotionLogDto implements Dto {
 
     private String id;
     private String userId;
-    private Emotion emotion;
+    private String emotion;
     private String reason;
     private LocalTime startTime;
     private LocalTime endTime;
