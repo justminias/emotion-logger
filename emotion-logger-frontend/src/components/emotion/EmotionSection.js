@@ -11,12 +11,12 @@ import {changeSelectedDate} from "../../actions/selectedDateActions";
 
 export const EmotionSection = () => {
     const [activeEmotionId, setActiveEmotionId] = useState()
-    const emotionLogs = useSelector(store => store.emotionLogs.data)
+    const emotionLogs = useSelector(store => store.emotionLogs)
     const selectedDate = useSelector(store => store.selectedDate)
     const dispatch = useDispatch();
 
     const handleEmotionLogChange = (emotionLogId) => {
-        dispatch(changeCurrentEmotionLog(emotionLogs.find(emotionLog => emotionLog.id === emotionLogId)));
+        dispatch(changeCurrentEmotionLog(emotionLogs.data.find(emotionLog => emotionLog.id === emotionLogId)));
     }
 
     const handleSelectedDateChange = selectedDate => {
@@ -34,7 +34,7 @@ export const EmotionSection = () => {
 
     useEffect(() => {
         dispatch(getEmotionLogsThunk())
-        const firstLogOnDay = emotionLogs
+        const firstLogOnDay = emotionLogs.data
             .filter(emotionLog => ArrayUtil.equals(emotionLog.date, dateToArray(selectedDate)))
             .find(Boolean);
 
@@ -56,8 +56,11 @@ export const EmotionSection = () => {
             />
             <div className="emotion-list">
                 {   emotionLogs &&
-                    emotionLogs
-                        .filter(emotionLog => ArrayUtil.equals(emotionLog.date, dateToArray(selectedDate)))
+                    emotionLogs.data
+                        .filter(emotionLog => {
+                            console.log(emotionLog)
+                            return ArrayUtil.equals(emotionLog.date, dateToArray(selectedDate))
+                        })
                         .map(emotionLog =>
                         <div key={emotionLog.id}
                              id={emotionLog.id}

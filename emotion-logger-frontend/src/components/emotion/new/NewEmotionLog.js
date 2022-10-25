@@ -15,6 +15,7 @@ export const NewEmotionLog = () => {
     const { register, handleSubmit, setValue } = useForm();
     const chosenSolutions = useSelector(store => store.solutions.chosenSolutions)
     const selectedDate = useSelector(store => store.selectedDate);
+    const [submitRequested, setSubmitRequested] = useState(false);
 
     const override = {
         display: "block",
@@ -25,8 +26,11 @@ export const NewEmotionLog = () => {
     const onSubmit = (data) => {
         setValue("chosenSolutions", chosenSolutions);
         setValue("date", selectedDate)
-        dispatch(saveEmotionLogThunk(data));
-    }
+        if (submitRequested) {
+            dispatch(saveEmotionLogThunk(data));
+        }
+        setSubmitRequested(false);
+    };
 
     return (
         <div className="columns">
@@ -101,6 +105,7 @@ export const NewEmotionLog = () => {
 
                     <input
                         type="submit"
+                        onClick={() => setSubmitRequested(true)}
                         className="button red-button"
                         value="Save"
                     />
