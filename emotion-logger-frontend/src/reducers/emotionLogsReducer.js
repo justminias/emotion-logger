@@ -35,7 +35,7 @@ const emotionLogsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                data: [...state.data, action.payload.emotionLog]
+                data: [...state.data, action.payload]
             }
         }
         default:

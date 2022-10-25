@@ -25,6 +25,7 @@ export const emotionLogSaved = (data) => ({
 
 export const saveEmotionLogThunk = (emotionLog) => (dispatch) => {
     dispatch(emotionLogSaving(emotionLog));
+    console.log('EmotionLog', emotionLog)
     return axios.post('http://localhost:8080/api/emotion-log/add', emotionLog)
         .then(() => dispatch(emotionLogSaved(emotionLog)))
         .catch(error => console.log(error));

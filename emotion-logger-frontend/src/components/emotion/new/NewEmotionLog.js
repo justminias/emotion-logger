@@ -8,13 +8,11 @@ import {useState} from "react";
 import {useForm} from "react-hook-form";
 
 export const NewEmotionLog = () => {
-
     const history = useHistory();
     const dispatch = useDispatch();
     const [loading, isLoading] = useState(false);
     const { register, handleSubmit, setValue } = useForm();
     const chosenSolutions = useSelector(store => store.solutions.chosenSolutions)
-    const selectedDate = useSelector(store => store.selectedDate);
     const [submitRequested, setSubmitRequested] = useState(false);
 
     const override = {

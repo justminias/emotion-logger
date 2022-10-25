@@ -7,20 +7,15 @@ import {changeCurrentEmotionLog, clearCurrentEmotionLog} from '../../actions/cho
 import {useSelector, useDispatch} from "react-redux";
 import {getEmotionLogsThunk} from "../../actions/emotionLogActions";
 import ArrayUtil from "../../utils/ArrayUtil";
-import {changeSelectedDate} from "../../actions/selectedDateActions";
 
 export const EmotionSection = () => {
     const [activeEmotionId, setActiveEmotionId] = useState()
     const emotionLogs = useSelector(store => store.emotionLogs)
-    const selectedDate = useSelector(store => store.selectedDate)
+    const [selectedDate, setSelectedDate] = useState(new Date());
     const dispatch = useDispatch();
 
     const handleEmotionLogChange = (emotionLogId) => {
         dispatch(changeCurrentEmotionLog(emotionLogs.data.find(emotionLog => emotionLog.id === emotionLogId)));
-    }
-
-    const handleSelectedDateChange = selectedDate => {
-        dispatch(changeSelectedDate(selectedDate))
     }
 
     const toggleEmotion = (emotionLogId) => {
@@ -33,6 +28,7 @@ export const EmotionSection = () => {
     }
 
     useEffect(() => {
+        console.log(selectedDate);
         dispatch(getEmotionLogsThunk())
         const firstLogOnDay = emotionLogs.data
             .filter(emotionLog => ArrayUtil.equals(emotionLog.date, dateToArray(selectedDate)))
@@ -50,7 +46,7 @@ export const EmotionSection = () => {
             <DayPicker
                 mode="single"
                 selected={selectedDate}
-                onSelect={handleSelectedDateChange}
+                onSelect={setSelectedDate}
                 weekStartsOn={1}
                 required={true}
             />
@@ -58,7 +54,6 @@ export const EmotionSection = () => {
                 {   emotionLogs &&
                     emotionLogs.data
                         .filter(emotionLog => {
-                            console.log(emotionLog)
                             return ArrayUtil.equals(emotionLog.date, dateToArray(selectedDate))
                         })
                         .map(emotionLog =>
