@@ -7,7 +7,7 @@ export const EmptyEmotionLog = () => {
                 day</p>
             <hr className="my-4"/>
             <section>
-                <Link to="/log-emotion">
+                <Link to="/main/log-emotion">
                     <button className="button blue-button is-fullwidth">Log emotion +</button>
                 </Link>
             </section>

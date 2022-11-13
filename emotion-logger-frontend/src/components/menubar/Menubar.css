@@ -7,6 +7,10 @@
     padding: 1rem;
 }
 
+.navbar-item-logout {
+    color: red;
+}
+
 a.navbar-item:hover, .navbar-link:hover {
     background-color: white;
     color: black;

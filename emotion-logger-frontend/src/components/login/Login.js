@@ -1,7 +1,12 @@
 import AuthenticationService from "../../services/authentication-service";
 import {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import Menubar from "../menubar/Menubar";
+import {FooterSection} from "../common/footer/FooterSection";
 
-const Login = ({setLoggedIn}) => {
+const Login = () => {
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const inputLogin = document.getElementById("inputLogin")
@@ -30,44 +35,49 @@ const Login = ({setLoggedIn}) => {
         AuthenticationService.executeBasicAuthenticationService(login, password)
             .then(() => {
                 AuthenticationService.registerSuccessfulLogin(login, password)
-                setLoggedIn(true)
+                navigate("/main");
             })
     }
 
 
     return (
-        <div className="container p-6 m-6">
-            <div className="columns">
-                <div className="field column is-4 is-offset-4">
-                    <label className="label">Login</label>
-                    <div className="control has-icons-left has-icons-right">
-                        <input id="inputLogin" className="input is-normal" type="email" placeholder="Login"/>
-                        <span className="icon is-left">
+        <>
+            <Menubar.EmptyMenubar/>
+            <div className="container p-6 m-6">
+                <div className="columns">
+                    <div className="field column is-4 is-offset-4">
+                        <label className="label">Email</label>
+                        <div className="control has-icons-left has-icons-right">
+                            <input id="inputLogin" className="input is-normal" type="email" placeholder="Email"/>
+                            <span className="icon is-left">
                         <i className="fas fa-envelope"/>
                     </span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div className="columns">
-                <div className="field column is-4 is-offset-4">
-                    <label className="label">Password</label>
-                    <div className="control has-icons-left">
-                        <input id="inputPassword" className="input is-normal" type="password" placeholder="Password"/>
-                        <span className="icon is-left">
+                <div className="columns">
+                    <div className="field column is-4 is-offset-4">
+                        <label className="label">Password</label>
+                        <div className="control has-icons-left">
+                            <input id="inputPassword" className="input is-normal" type="password"
+                                   placeholder="Password"/>
+                            <span className="icon is-left">
                         <i className="fas fa-lock"/>
                     </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="columns">
+                    <div className="column is-4 is-offset-4">
+                        <button className="button red-button is-normal" id="inputSubmit" onClick={handleSubmit}>Login
+                        </button>
                     </div>
                 </div>
             </div>
-
-            <div className="columns">
-                <div className="column is-4 is-offset-4">
-                    <button className="button red-button is-normal" id="inputSubmit" onClick={handleSubmit}>Login
-                    </button>
-                </div>
-            </div>
-        </div>
+            <FooterSection />
+        </>
     );
 }
 

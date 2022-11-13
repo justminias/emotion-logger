@@ -1,4 +1,5 @@
 import {useSelector} from "react-redux";
+import {redirect} from "react-router-dom";
 
 export const ChosenEmotionLog = () => {
 
@@ -40,7 +41,7 @@ export const ChosenEmotionLog = () => {
                 </section>
             </div>
             <div className="is-flex is-justify-content-end">
-                <button className="button icon-text gray-button">
+                <button onClick={() => redirect("/edit-log")} className="button icon-text gray-button">
                     <span>Edit</span>
                     <span className="icon">
                             <i className="fas fa-solid fa-pen"></i>

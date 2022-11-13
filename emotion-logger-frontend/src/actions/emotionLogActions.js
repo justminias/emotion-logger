@@ -23,12 +23,19 @@ export const emotionLogSaved = (data) => ({
     payload: data
 });
 
-export const saveEmotionLogThunk = (emotionLog) => (dispatch) => {
+export const saveEmotionLogThunk = (emotionLog, setLoading, redirectFn) => (dispatch) => {
     dispatch(emotionLogSaving(emotionLog));
     console.log('EmotionLog', emotionLog)
     return axios.post('http://localhost:8080/api/emotion-log/add', emotionLog)
-        .then(() => dispatch(emotionLogSaved(emotionLog)))
-        .catch(error => console.log(error));
+        .then(() => {
+            dispatch(emotionLogSaved(emotionLog));
+            setLoading(false);
+            redirectFn();
+        })
+        .catch(error => {
+            console.log(error)
+            setLoading(false);
+        });
 }
 
 export const getEmotionLogsThunk = () => (dispatch) => {

@@ -21,29 +21,28 @@ const addAuthorizationHeaderToRequests = () => {
 }
 
 const logout = () => {
-    sessionStorage.removeItem('login');
-    sessionStorage.removeItem('token');
-    window.location.reload();
+    localStorage.removeItem('login');
+    localStorage.removeItem('token');
 }
 
 const registerSuccessfulLogin = (username, password) => {
     const token = createBasicAuthToken(username,password);
-    sessionStorage.setItem('login', username)
-    sessionStorage.setItem('token', token)
+    localStorage.setItem('login', username)
+    localStorage.setItem('token', token)
     addAuthorizationHeaderToRequests()
 }
 
 const isUserLoggedIn = () => {
-    return sessionStorage.getItem('login') && sessionStorage.getItem('token')
+    return localStorage.getItem('login') && localStorage.getItem('token')
 }
 
 const getLoggedInUserName = () => {
-    let user = sessionStorage.getItem('login')
+    let user = localStorage.getItem('login')
     if (user === null) return ''
     return user
 }
 
-const getToken = () => sessionStorage.getItem('token');
+const getToken = () => localStorage.getItem('token');
 
 const AuthenticationService = {
     addAuthorizationHeaderToRequests,

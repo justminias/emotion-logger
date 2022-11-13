@@ -1,16 +1,16 @@
 import "./common.css";
-import {EmotionSection} from "./components/emotion/EmotionSection";
-import {FooterSection} from "./components/common/footer/FooterSection";
-import {Menubar} from "./components/menubar/Menubar";
-import {ChosenEmotionLog} from "./components/emotion/chosen/ChosenEmotionLog";
-import {BrowserRouter as Router, Route} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {EmptyEmotionLog} from "./components/emotion/empty/EmptyEmotionLog";
-import {NewEmotionLog} from "./components/emotion/new/NewEmotionLog";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from "./components/login/Login";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {SelectedDateProvider} from "./contexts/SelectedDateContext";
-
+import Home from "./Home";
+import AuthenticationService from "./services/authentication-service";
+import Logout from "./components/logout/Logout";
+import {NewEmotionLog} from "./components/emotion/new/NewEmotionLog";
+import {useSelector} from "react-redux";
+import {EmotionSection} from "./components/emotion/EmotionSection";
+import {ChosenEmotionLog} from "./components/emotion/chosen/ChosenEmotionLog";
+import {EmptyEmotionLog} from "./components/emotion/empty/EmptyEmotionLog";
 
 const Body = () => {
 
@@ -32,28 +32,23 @@ const App = () => {
 
     const [loggedIn, setLoggedIn] = useState(false);
 
+    useEffect(() => {
+        setLoggedIn(AuthenticationService.isUserLoggedIn());
+    })
+
     return (
         <SelectedDateProvider>
-            <Router>
-                <Route path="/">
-                    <Menubar loggedIn={loggedIn}/>
-                </Route>
-                {loggedIn &&
-                    <>
-                        <Route exact path="/" component={Body}/>
-                        <Route exact path="/log-emotion" component={NewEmotionLog}/>
-                    </>
-                }
-
-                {!loggedIn &&
-                    <Route exact path="/">
-                        <Login setLoggedIn={setLoggedIn}/>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/main" element={<Home />}>
+                        <Route path="" element={<Body />} />
+                        <Route path="log-emotion" element={<NewEmotionLog />} />
                     </Route>
-                }
-                <Route path="/" component={FooterSection}/>
-            </Router>
+                    <Route path="/login" element={<Login /> } />
+                    <Route path="/logout" element={<Logout />} />
+                </Routes>
+            </BrowserRouter>
         </SelectedDateProvider>
-
     );
 }
 

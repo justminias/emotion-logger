@@ -1,5 +1,5 @@
 import {SolutionSection} from "../../solution/SolutionSection";
-import {useHistory} from "react-router-dom";
+import {redirect, useNavigate} from "react-router-dom";
 import "./NewEmotionLog.css";
 import {saveEmotionLogThunk} from "../../../actions/emotionLogActions";
 import {useDispatch, useSelector} from "react-redux";
@@ -10,15 +10,15 @@ import {useContext} from "react";
 import SelectedDateContext from "../../../contexts/SelectedDateContext";
 import moment from "moment";
 
-export const NewEmotionLog = () => {
-    const history = useHistory();
+export const NewEmotionLog = ({emotionLog}) => {
     const dispatch = useDispatch();
-    const [loading, isLoading] = useState(false);
-    const { register, handleSubmit, setValue } = useForm();
+    const [loading, setLoading] = useState(false); // loader flag
+    const { register, handleSubmit } = useForm();
     const chosenSolutions = useSelector(store => store.solutions.chosenSolutions)
-    const [submitRequested, setSubmitRequested] = useState(false);
+    const [submitRequested, setSubmitRequested] = useState(false); // need for not everytime sending submit request
 
     const { date } = useContext(SelectedDateContext);
+    const navigate = useNavigate();
 
     const override = {
         display: "block",
@@ -26,10 +26,12 @@ export const NewEmotionLog = () => {
         borderColor: "red",
     };
 
+
     const onSubmit = ({emotion, startTime, endTime, description, reason}) => {
         const formattedDate = moment(date).format('YYYY-MM-DD')  // to fix problems with converting js date to java LocalDate via axios
 
         if (submitRequested) {
+            setLoading(true);
             dispatch(saveEmotionLogThunk({
                 emotion: emotion,
                 startTime: startTime,
@@ -38,7 +40,7 @@ export const NewEmotionLog = () => {
                 reason: reason,
                 chosenSolutions: chosenSolutions,
                 date: formattedDate
-            }));
+            }, setLoading, () => navigate("/main")));
         }
         setSubmitRequested(false);
     };
@@ -46,7 +48,7 @@ export const NewEmotionLog = () => {
     return (
         <div className="columns">
             <div className="column is-2">
-                <button className="button icon-text mt-6 ml-6" onClick={() => history.goBack()}>
+                <button className="button icon-text mt-6 ml-6" onClick={() => navigate(-1)}>
                     <span className="icon">
                             <i className="fas fa-solid fa-angle-left"></i>
                         </span>
@@ -61,6 +63,7 @@ export const NewEmotionLog = () => {
                                 className="input mt-2"
                                 type="text"
                                 placeholder="Type your emotion here..."
+                                defaultValue={emotionLog?.emotion}
                                 {...register("emotion", { required: true })}
                             />
                         </div>
@@ -71,7 +74,7 @@ export const NewEmotionLog = () => {
                                 id="start-time"
                                 className="time-picker"
                                 type="time"
-                                defaultValue="08:30"
+                                defaultValue={ emotionLog !== undefined ? emotionLog.startTime : "08:30" }
                                 {...register("startTime", { required: true })}
                             />
                         </label>
@@ -83,7 +86,7 @@ export const NewEmotionLog = () => {
                                 id="end-time"
                                 className="time-picker"
                                 type="time"
-                                defaultValue="12:30"
+                                defaultValue={ emotionLog !== undefined ? emotionLog.startTime : "12:30" }
                                 {...register("endTime", { required: true })}
                             />
                         </label>
@@ -96,6 +99,7 @@ export const NewEmotionLog = () => {
                             <textarea
                                 className="textarea"
                                 placeholder="Add description here..."
+                                defaultValue={emotionLog?.description}
                                 {...register("description", { required: true })}
                             />
                         </div>
@@ -107,6 +111,7 @@ export const NewEmotionLog = () => {
                             <textarea
                                 className="textarea"
                                 placeholder="Add reason here..."
+                                defaultValue={emotionLog?.reason}
                                 {...register("reason", { required: true })}
                             />
                         </div>
