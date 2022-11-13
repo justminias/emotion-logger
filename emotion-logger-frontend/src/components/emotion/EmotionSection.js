@@ -1,5 +1,5 @@
 import './EmotionSection.css'
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {DayPicker} from "react-day-picker";
 import 'react-day-picker/dist/style.css';
 
@@ -7,11 +7,14 @@ import {changeCurrentEmotionLog, clearCurrentEmotionLog} from '../../actions/cho
 import {useSelector, useDispatch} from "react-redux";
 import {getEmotionLogsThunk} from "../../actions/emotionLogActions";
 import ArrayUtil from "../../utils/ArrayUtil";
+import SelectedDateContext from "../../contexts/SelectedDateContext";
 
 export const EmotionSection = () => {
     const [activeEmotionId, setActiveEmotionId] = useState()
     const emotionLogs = useSelector(store => store.emotionLogs)
-    const [selectedDate, setSelectedDate] = useState(new Date());
+
+    const { date, changeDate } = useContext(SelectedDateContext);
+
     const dispatch = useDispatch();
 
     const handleEmotionLogChange = (emotionLogId) => {
@@ -28,16 +31,16 @@ export const EmotionSection = () => {
     }
 
     useEffect(() => {
-        console.log(selectedDate);
+        console.log('date', date);
         dispatch(getEmotionLogsThunk())
         const firstLogOnDay = emotionLogs.data
-            .filter(emotionLog => ArrayUtil.equals(emotionLog.date, dateToArray(selectedDate)))
+            .filter(emotionLog => ArrayUtil.equals(emotionLog.date, dateToArray(date)))
             .find(Boolean);
 
         firstLogOnDay === undefined
             ? dispatch(clearCurrentEmotionLog())
             : toggleEmotion(firstLogOnDay.id)
-    }, [selectedDate])
+    }, [date])
 
     const dateToArray = (date) => [date.getFullYear(), date.getMonth()+1, date.getDate()];
 
@@ -45,8 +48,8 @@ export const EmotionSection = () => {
         <>
             <DayPicker
                 mode="single"
-                selected={selectedDate}
-                onSelect={setSelectedDate}
+                selected={date}
+                onSelect={changeDate}
                 weekStartsOn={1}
                 required={true}
             />
@@ -54,7 +57,7 @@ export const EmotionSection = () => {
                 {   emotionLogs &&
                     emotionLogs.data
                         .filter(emotionLog => {
-                            return ArrayUtil.equals(emotionLog.date, dateToArray(selectedDate))
+                            return ArrayUtil.equals(emotionLog.date, dateToArray(date))
                         })
                         .map(emotionLog =>
                         <div key={emotionLog.id}

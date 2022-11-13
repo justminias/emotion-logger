@@ -6,6 +6,9 @@ import {useDispatch, useSelector} from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 import {useState} from "react";
 import {useForm} from "react-hook-form";
+import {useContext} from "react";
+import SelectedDateContext from "../../../contexts/SelectedDateContext";
+import moment from "moment";
 
 export const NewEmotionLog = () => {
     const history = useHistory();
@@ -15,17 +18,27 @@ export const NewEmotionLog = () => {
     const chosenSolutions = useSelector(store => store.solutions.chosenSolutions)
     const [submitRequested, setSubmitRequested] = useState(false);
 
+    const { date } = useContext(SelectedDateContext);
+
     const override = {
         display: "block",
         margin: "0 auto",
         borderColor: "red",
     };
 
-    const onSubmit = (data) => {
-        setValue("chosenSolutions", chosenSolutions);
-        setValue("date", selectedDate)
+    const onSubmit = ({emotion, startTime, endTime, description, reason}) => {
+        const formattedDate = moment(date).format('YYYY-MM-DD')  // to fix problems with converting js date to java LocalDate via axios
+
         if (submitRequested) {
-            dispatch(saveEmotionLogThunk(data));
+            dispatch(saveEmotionLogThunk({
+                emotion: emotion,
+                startTime: startTime,
+                endTime: endTime,
+                description: description,
+                reason: reason,
+                chosenSolutions: chosenSolutions,
+                date: formattedDate
+            }));
         }
         setSubmitRequested(false);
     };

@@ -9,6 +9,7 @@ import {EmptyEmotionLog} from "./components/emotion/empty/EmptyEmotionLog";
 import {NewEmotionLog} from "./components/emotion/new/NewEmotionLog";
 import Login from "./components/login/Login";
 import {useState} from "react";
+import {SelectedDateProvider} from "./contexts/SelectedDateContext";
 
 
 const Body = () => {
@@ -32,24 +33,27 @@ const App = () => {
     const [loggedIn, setLoggedIn] = useState(false);
 
     return (
-        <Router>
-            <Route path="/">
-                <Menubar loggedIn={loggedIn} />
-            </Route>
-            {loggedIn &&
-                <>
-                    <Route exact path="/" component={Body}/>
-                    <Route exact path="/log-emotion" component={NewEmotionLog}/>
-                </>
-            }
-
-            {!loggedIn &&
-                <Route exact path="/">
-                    <Login setLoggedIn={setLoggedIn} />
+        <SelectedDateProvider>
+            <Router>
+                <Route path="/">
+                    <Menubar loggedIn={loggedIn}/>
                 </Route>
-            }
-            <Route path="/" component={FooterSection}/>
-        </Router>
+                {loggedIn &&
+                    <>
+                        <Route exact path="/" component={Body}/>
+                        <Route exact path="/log-emotion" component={NewEmotionLog}/>
+                    </>
+                }
+
+                {!loggedIn &&
+                    <Route exact path="/">
+                        <Login setLoggedIn={setLoggedIn}/>
+                    </Route>
+                }
+                <Route path="/" component={FooterSection}/>
+            </Router>
+        </SelectedDateProvider>
+
     );
 }
 
