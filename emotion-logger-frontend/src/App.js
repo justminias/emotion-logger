@@ -1,5 +1,5 @@
 import "./common.css";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes, useNavigate} from "react-router-dom";
 import Login from "./components/login/Login";
 import {useEffect, useState} from "react";
 import {SelectedDateProvider} from "./contexts/SelectedDateContext";
@@ -40,6 +40,7 @@ const App = () => {
         <SelectedDateProvider>
             <BrowserRouter>
                 <Routes>
+                    <Route path="" element={<Home />} />
                     <Route path="/main" element={<Home />}>
                         <Route path="" element={<Body />} />
                         <Route path="log-emotion" element={<NewEmotionLog />} />
