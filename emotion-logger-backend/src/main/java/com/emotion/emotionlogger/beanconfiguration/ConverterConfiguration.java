@@ -1,6 +1,7 @@
 package com.emotion.emotionlogger.beanconfiguration;
 
 import com.emotion.emotionlogger.converter.*;
+import com.emotion.emotionlogger.repository.SolutionRepository;
 import com.emotion.emotionlogger.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +10,8 @@ import org.springframework.context.annotation.Configuration;
 public class ConverterConfiguration {
 
     @Bean
-    public EmotionLogConverter emotionLogConverter(UserRepository userRepository) {
-        return new EmotionLogConverter(userRepository);
+    public EmotionLogConverter emotionLogConverter(UserRepository userRepository, SolutionRepository solutionRepository) {
+        return new EmotionLogConverter(userRepository, solutionRepository);
     }
 
     @Bean

@@ -14,7 +14,7 @@ export const NewEmotionLog = ({emotionLog}) => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false); // loader flag
     const { register, handleSubmit } = useForm();
-    const chosenSolutions = useSelector(store => store.solutions.chosenSolutions)
+    const chosenSolutionIds = useSelector(store => store.solutions.chosenSolutions.map(e => e.id))
     const [submitRequested, setSubmitRequested] = useState(false); // need for not everytime sending submit request
 
     const { date } = useContext(SelectedDateContext);
@@ -38,7 +38,7 @@ export const NewEmotionLog = ({emotionLog}) => {
                 endTime: endTime,
                 description: description,
                 reason: reason,
-                chosenSolutions: chosenSolutions,
+                chosenSolutionIds: chosenSolutionIds,
                 date: formattedDate
             }, setLoading, () => navigate("/main")));
         }

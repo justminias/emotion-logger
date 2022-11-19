@@ -1,10 +1,11 @@
 package com.emotion.emotionlogger.dto;
 
-import com.emotion.emotionlogger.enumeration.Emotion;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,4 +24,7 @@ public class EmotionLogDto implements Dto {
     private LocalTime endTime;
     private LocalDate date;
     private String description;
+
+    @Builder.Default
+    private Set<String> chosenSolutionIds = new HashSet<>();
 }
